@@ -9,3 +9,8 @@ https://github.com/FNGPooky/OniPlayerReborn/raw/main/Updater.jar
 https://github.com/FNGPooky/OniPlayerReborn/raw/main/MainPlugins.oniplugin
 6. Запустить установку плагинов (просто открыть).
 7. Авторизоваться.
+
+Список основных плагинов:
+- источник Nekomori
+- источник SovetRomantica
+- источник AniLibria
