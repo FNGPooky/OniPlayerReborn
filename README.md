@@ -5,6 +5,7 @@
 https://github.com/FNGPooky/OniPlayerReborn/raw/main/Updater.jar
 3. Установить последнюю версию (запустится автоматически).
 4. Закрыть программу.
-5. Установить основные плагины:
+5. Скачать основные плагины:
 https://github.com/FNGPooky/OniPlayerReborn/raw/main/MainPlugins.oniplugin
-6. Авторизоваться.
+6. Запустить установку плагинов (просто открыть).
+7. Авторизоваться.
