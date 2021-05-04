@@ -6,8 +6,8 @@ class AnimeVostPlugin
     const Name = "AnimeVost";
     const Description = "Источник аниме AnimeVost [Озвучка]";
     const Version = "0.0.1";
-	const Type = "Парсер";
-	const Domain = "a98.agorov.org";
+    const Type = "Парсер";
+    const Domain = "a98.agorov.org";
     
     static function info(){
         return [
@@ -25,9 +25,9 @@ class AnimeVostPlugin
     }
     
     static function search(string $query, int $episode=1, int $type=3){
-		if($type != 3){
-			return pSource::set_error(self::Name, 'Отсутствует этот тип перевода');
-		}
+	if($type != 3){
+	        return pSource::set_error(self::Name, 'Отсутствует этот тип перевода');
+	}
 		
         $animes = ParserClass::curl_match("https://".self::Domain."/engine/ajax/search.php", "<a href=\"(.*?)\"><span class=\"searchheading\">(.*?) \/", [], false, "query=".urlencode($query));
 		
