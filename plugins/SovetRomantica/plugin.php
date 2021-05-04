@@ -13,8 +13,8 @@ class SovetRomanticaPlugin
 	static function info(){
 		return [
 			'name'=>self::Name,
-			'description'=>self::Description,
-			'version'=>self::Version,
+			'desc'=>self::Description,
+			'ver'=>self::Version,
 			'type'=>self::Type
 		];
 	}
@@ -25,7 +25,7 @@ class SovetRomanticaPlugin
 
 		self::loadCookie();
 
-		return self::info();
+		return new MPlugin(self::info());
 	}
 
 	static function loadCookie(){
