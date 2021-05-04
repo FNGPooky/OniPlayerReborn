@@ -3,33 +3,33 @@ use std, gui, framework, app, jurl;
 
 class AnimeVostPlugin
 {
-    const Name = "AnimeVost";
-    const Description = "Источник аниме AnimeVost [Озвучка]";
-    const Version = "0.0.1";
-    const Type = "Парсер";
-    const Domain = "a98.agorov.org";
-    
-    static function info(){
-        return [
-            'name'=>self::Name,
-            'desc'=>self::Description,
-            'ver'=>self::Version,
-            'type'=>self::Type
-        ];
-    }
-    
-    static function init(){
-        pSource::add(self::Name . "Plugin");
-        
-        return new MPlugin(self::info());
-    }
-    
-    static function search(string $query, int $episode=1, int $type=3){
-	if($type != 3){
-	        return pSource::set_error(self::Name, 'Отсутствует этот тип перевода');
+	const Name = "AnimeVost";
+	const Description = "Источник аниме AnimeVost [Озвучка]";
+	const Version = "0.0.1";
+	const Type = "Парсер";
+	const Domain = "a98.agorov.org";
+	
+	static function info(){
+		return [
+			'name'=>self::Name,
+			'desc'=>self::Description,
+			'ver'=>self::Version,
+			'type'=>self::Type
+		];
 	}
+	
+	static function init(){
+		pSource::add(self::Name . "Plugin");
 		
-        $animes = ParserClass::curl_match("https://".self::Domain."/engine/ajax/search.php", "<a href=\"(.*?)\"><span class=\"searchheading\">(.*?) \/", [], false, "query=".urlencode($query));
+		return new MPlugin(self::info());
+	}
+	
+	static function search(string $query, int $episode=1, int $type=3){
+		if($type != 3){
+			return pSource::set_error(self::Name, 'Отсутствует этот тип перевода');
+		}
+		
+		$animes = ParserClass::curl_match("https://".self::Domain."/engine/ajax/search.php", "<a href=\"(.*?)\"><span class=\"searchheading\">(.*?) \/", [], false, "query=".urlencode($query));
 		
 		if (!empty($animes)) {
 			foreach ($animes as $id=>$anime) {
@@ -60,5 +60,5 @@ class AnimeVostPlugin
 		} else {
 			return pSource::set_error(self::Name, 'Аниме не найдено');
 		}
-    }
+	}
 }
