@@ -12,8 +12,8 @@ class AnimeJoyPlugin
     static function info(){
         return [
             'name'=>self::Name,
-            'description'=>self::Description,
-            'version'=>self::Version,
+            'desc'=>self::Description,
+            'ver'=>self::Version,
             'type'=>self::Type
         ];
     }
@@ -21,7 +21,7 @@ class AnimeJoyPlugin
     static function init(){
         pSource::add(self::Name . "Plugin");
         
-        return self::info();
+        return new MPlugin(self::info());
     }
     
     static function search(string $query, int $episode=1, int $type=3){
