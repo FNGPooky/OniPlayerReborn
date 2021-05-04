@@ -1,1 +1,20 @@
-["AnimeVost"]
+[
+  {
+    "name": "AnimeJoy",
+    "type": "parser",
+    "desc": "Аниме с субтитрами",
+    "ver": "0.0.1"
+  },
+  {
+    "name": "SovetRomantica",
+    "type": "parser",
+    "desc": "Субтитры и озвучка аниме",
+    "ver": "0.0.2"
+  },
+  {
+    "name": "AnimeVost",
+    "type": "parser",
+    "desc": "Аниме стабильно и без задержек",
+    "ver": "0.0.1"
+  }
+]
