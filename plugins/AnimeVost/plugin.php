@@ -5,7 +5,7 @@ class AnimeVostPlugin
 {
 	const Name = "AnimeVost";
 	const Description = "Источник аниме AnimeVost [Озвучка]";
-	const Version = "0.0.1";
+	const Version = "0.0.2";
 	const Type = "Парсер";
 	const Domain = "a98.agorov.org";
 	
