@@ -28,10 +28,13 @@ class AnimeJoyPlugin
 		if($type != 2){
 			return pSource::set_error(self::Name, 'Отсутствует этот тип перевода');
 		}
-		$animes = ParserClass::curl_match('https://animejoy.ru/', '<h2 class="ntitle"><a href="(.*?)">(.*?) \[.*?\]<\/a><\/h2>', [], false, "do=search&subaction=search&story=" . urlencode($query));
+		$animes = ParserClass::curl_match('https://animejoy.ru/', '<h2 class="ntitle"><a href="(.*?)">(.*?) \[.*?\]<\/a><\/h2>', [], false, "do=search&subaction=search&story=" . urlencode(ParserClass::clear_query($query)));
+
+		#DebugClass::dump_log($animes);
 
 		if(!empty($animes)){
 			foreach($animes as $id=>$anime){
+				#DebugClass::echo_log($anime[2]);
 				if(ParserClass::clear_query($anime[2]) == ParserClass::clear_query($query)){
 					$main_id = $id;
 					break;
@@ -43,13 +46,16 @@ class AnimeJoyPlugin
 			}
 
 			$ajax_data = ParserClass::curl_match($animes[$main_id][1], 'div class="playlists-ajax" data-xfname="(.*?)" data-news_id="(.*?)">');
+
 			if(isset($ajax_data[0][2])){
 				$data = json_decode(ParserClass::curlexec('https://animejoy.ru/engine/ajax/playlists.php?news_id='.$ajax_data[0][2].'&xfield='.$ajax_data[0][1]), true);
 				if($data['success'] == true and isset($data['response'])) {
-					$depisodes = ParserClass::match('<li data-file=\\"(.*?)" data-id=\\".*?\\">(.*?) серия<\/li>', $data['response'], true);
-					foreach($depisodes as $depisode){
-						if($depisode[2] == $episode){
+					#DebugClass::dump_log($data);
+					$depisodes = ParserClass::match('<li data-file=\"(.*?)" data-id=\".*?\">(.*?) ([а-я]+)<\/li>', $data['response'], true);
 
+					foreach($depisodes as $depisode){
+						if($depisode[2] == $episode and $depisode[3] == "серия") {
+							DebugClass::dump_log($depisode);
 							if(str::contains($depisode[1], 'sibnet')) {
 								$url = OtherClass::sibnet_parse($depisode[1]);
 								$source = 'Sibnet';
