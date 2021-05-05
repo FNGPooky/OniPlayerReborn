@@ -6,7 +6,7 @@ class AnimeJoyPlugin
 {
 	const Name = 'AnimeJoy';
 	const Description = 'Источник аниме AnimeJoy [Субтитры]';
-	const Version = '0.0.1';
+	const Version = '0.0.2';
 	const Type = 'Парсер';
 
 	static function info(){
