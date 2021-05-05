@@ -29,7 +29,7 @@ class AnimeVostPlugin
 			return pSource::set_error(self::Name, 'Отсутствует этот тип перевода');
 		}
 		
-		$animes = ParserClass::curl_match("https://".self::Domain."/engine/ajax/search.php", "<a href=\"(.*?)\"><span class=\"searchheading\">(.*?) \/", [], false, "query=".urlencode($query));
+		$animes = ParserClass::curl_match("https://".self::Domain."/", '<div class="shortstoryHead">\s*<h2>\s*<a href="(.*?)">(.*?) \/.*?<\/a>', [], false, "do=search&subaction=search&story=".urlencode(ParserClass::clear_query($query)));
 		
 		if (!empty($animes)) {
 			foreach ($animes as $id=>$anime) {
@@ -40,7 +40,7 @@ class AnimeVostPlugin
 			}
 			
 			if (isset($animes[$main_id][1])) {
-				$episodes = ParserClass::curl_match("https://".self::Domain.$animes[$main_id][1], 'var data = \{(.*?)\};')[0][1];
+				$episodes = ParserClass::curl_match($animes[$main_id][1], 'var data = \{(.*?)\};')[0][1];
 			
 				if (substr($episodes, -1) == ",") {
 					$episodes = json_decode("{".substr($episodes, 0, -1)."}", true);
@@ -49,7 +49,7 @@ class AnimeVostPlugin
 				}
 				
 				if (isset($episodes["$episode серия"])) {
-					pSource::add_dub(self::Name, self::Name, "https://ram.trn.su/720/".$episodes["$episode серия"].".mp4", self::Name);
+					pSource::add_dub(self::Name, self::Name, "https://ram.trn.su/720/".$episodes["$episode серия"].".mp4", self::Name." [720p?]");
 					pSource::set_ready(self::Name);
 				} else {
 					return pSource::set_error(self::Name, 'Отсутствует эпизод');
