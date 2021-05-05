@@ -3,7 +3,7 @@
     "name": "AnimeJoy",
     "type": "parser",
     "desc": "Аниме с субтитрами",
-    "ver": "0.0.2"
+    "ver": "0.0.3"
   },
   {
     "name": "SovetRomantica",
@@ -15,6 +15,12 @@
     "name": "AnimeVost",
     "type": "parser",
     "desc": "Аниме стабильно и без задержек",
-    "ver": "0.0.1"
+    "ver": "0.0.2"
+  },
+  {
+    "name": "AniLibria",
+    "type": "parser",
+    "desc": "Так звучит аниме!",
+    "ver": "0.0.2"
   }
 ]
