@@ -6,7 +6,7 @@ class AnimeJoyPlugin
 {
 	const Name = 'AnimeJoy';
 	const Description = 'Источник аниме AnimeJoy [Субтитры]';
-	const Version = '0.0.3';
+	const Version = '0.0.4';
 	const Type = 'Парсер';
 
 	static function info(){
@@ -20,6 +20,8 @@ class AnimeJoyPlugin
 
 	static function init(){
 		pSource::add(self::Name . "Plugin");
+		pParser::add('Proton', array(self::Name . "Plugin", "proton_parse"));
+		pParser::add('AllVideos', array(self::Name . "Plugin", "allvideos_parse"));
 
 		return new MPlugin(self::info());
 	}
@@ -46,6 +48,7 @@ class AnimeJoyPlugin
 
 			if(isset($ajax_data[0][2])){
 				$data = json_decode(ParserClass::curlexec('https://animejoy.ru/engine/ajax/playlists.php?news_id='.$ajax_data[0][2].'&xfield='.$ajax_data[0][1]), true);
+
 				if($data['success'] == true and isset($data['response'])) {
 					$depisodes = ParserClass::match('<li data-file=\"(.*?)" data-id=\".*?\">(.*?) ([а-я]+)<\/li>', $data['response'], true);
 
@@ -55,12 +58,12 @@ class AnimeJoyPlugin
 								$url = OtherClass::sibnet_parse($depisode[1]);
 								$source = 'Sibnet';
 							}elseif(str::contains($depisode[1], 'csst.online')) {
-								$url = self::csst_parse($depisode[1], true);
-								$source = 'csst.online [' . $url[1] . ']';
+								$url = self::allvideos_parse($depisode[1], true);
+								$source = 'AllVideos [' . $url[1] . ']';
 								$url = $url[0];
 							}elseif(str::contains($depisode[1], 'protonvideo')){
-								$url = self::protonvideo_parse($depisode[1], true);
-								$source = 'protonvideo [' . $url[1] . ']';
+								$url = self::proton_parse($depisode[1], true);
+								$source = 'Proton [' . $url[1] . ']';
 								$url = $url[0];
 							}
 
@@ -84,7 +87,7 @@ class AnimeJoyPlugin
 		}
 	}
 
-	static function csst_parse($url, bool $returnQuality = false){
+	static function allvideos_parse($url, bool $returnQuality = false){
 		$result = ParserClass::curl_match($url, 'Location: (.*)', [], true);
 		$qualities = ParserClass::curl_match($result[0][1], '\[(.*?)p\](.*?)\.mp4\/');
 		$max_quality = 0;
@@ -98,7 +101,7 @@ class AnimeJoyPlugin
 		return $returnQuality ? [$url, "$max_quality\p"] : $url;
 	}
 
-	static function protonvideo_parse($url, bool $returnQuality = false) {
+	static function proton_parse($url, bool $returnQuality = false) {
 		$result = ParserClass::curl_match($url, "await fetch\\('(.*?)', \\{");
 		$id = ParserClass::match('https:\/\/protonvideo\.to\/iframe\/(.*?)\/', $url);
 		
