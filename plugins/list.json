@@ -3,7 +3,7 @@
     "name": "AnimeJoy",
     "type": "parser",
     "desc": "Аниме с субтитрами",
-    "ver": "0.0.3"
+    "ver": "0.0.4"
   },
   {
     "name": "SovetRomantica",
@@ -22,5 +22,11 @@
     "type": "parser",
     "desc": "Так звучит аниме!",
     "ver": "0.0.2"
+  },
+  {
+    "name": "Nekomori",
+    "type": "parser",
+    "desc": "Универсальное",
+    "ver": "0.0.3"
   }
 ]
