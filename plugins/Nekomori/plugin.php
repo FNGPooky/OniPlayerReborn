@@ -6,14 +6,14 @@ class NekomoriPlugin
 {
 	const Name = 'Nekomori';
 	const Description = 'Источник аниме Nekomori [Озвучка\Субтитры]';
-	const Version = '0.0.3';
+	const Version = '0.0.4';
 	const Type = 'Парсер';
 	
 	static function info(){
 		return [
 			'name'=>self::Name,
 			'desc'=>self::Description,
-			'vern'=>self::Version,
+			'ver'=>self::Version,
 			'type'=>self::Type
 		];
 	}
