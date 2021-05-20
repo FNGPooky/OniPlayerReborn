@@ -65,7 +65,7 @@ class SovetRomanticaPlugin
 			$episodes = json_decode(ParserClass::curlexec('https://service.sovetromantica.com/v1/anime/'.$animes[$main_id]['anime_id'].'/episodes'), true);
 
 			foreach ($episodes as $id => $ep) {
-				if ($ep["episode_count"] == $episode) {
+				if ($ep["episode_count"] == $episode) {	
 					$ep_id = $id;
 				}
 			}
