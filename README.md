@@ -8,9 +8,9 @@ https://github.com/FNGPooky/OniPlayerReborn/raw/main/Updater.jar
 5. Установить нужные плагины в "Плагины" (левый нижний пукнт меню)
 
 Список основных плагинов:
-- источник ~~Nekomori~~
-- источник ~~AniDub~~
+- источник Nekomori \[Озвучка\Субтитры]
 - источник AnimeJoy \[Субтитры]
 - источник AnimeVost \[Озвучка]
 - источник SovetRomantica \[Озвучка\Субтитры]
 - источник AniLibria \[Озвучка]
+- источник ~~AniDub~~
