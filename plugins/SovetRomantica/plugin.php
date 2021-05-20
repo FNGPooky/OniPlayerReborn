@@ -6,7 +6,7 @@ class SovetRomanticaPlugin
 {
 	const Name = 'SovetRomantica';
 	const Description = 'Источник аниме SovetRomantica [Озвучка\Субтитры]';
-	const Version = '0.0.2';
+	const Version = '0.0.3';
 	const Type = 'Парсер';
 
 	static $cookie;
@@ -71,7 +71,7 @@ class SovetRomanticaPlugin
 			}
 
 			if(isset($episodes[$ep_id]['embed'])){
-				$url = str_replace("sovetromantica.com", "ani.wtf", $episodes[$ep_id]['embed']);
+				$url = $episodes[$ep_id]['embed']; //$url = str_replace("sovetromantica.com", "ani.wtf", $episodes[$ep_id]['embed']);
 				$url = self::parse(explode('-', $url)[0] . '-' . ($type == 3 ? 'dubbed' : 'subtitles'), true);
 
 				if(!empty($url)){
