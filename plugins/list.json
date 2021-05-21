@@ -3,30 +3,30 @@
     "name": "AnimeJoy",
     "type": "parser",
     "desc": "Аниме с субтитрами",
-    "ver": "0.0.4"
+    "hash": "d962898d8b1f842fc1596eac74b88888"
   },
   {
     "name": "SovetRomantica",
     "type": "parser",
     "desc": "Субтитры и озвучка аниме",
-    "ver": "0.0.4"
+    "hash": "7a69881fa79243d1478e2a9fabc99a55"
   },
   {
     "name": "AnimeVost",
     "type": "parser",
     "desc": "Аниме стабильно и без задержек",
-    "ver": "0.0.2"
+    "hash": "6a23e65cc8726a0472f8d5addfa84a65"
   },
   {
     "name": "AniLibria",
     "type": "parser",
     "desc": "Так звучит аниме!",
-    "ver": "0.0.2"
+    "hash": "4d545d56d95b5eb4192e067a9450fc17"
   },
   {
     "name": "Nekomori",
     "type": "parser",
     "desc": "Универсальное",
-    "ver": "0.0.4"
+    "hash": "a74d5b6e7ff523c8091189841c938484"
   }
 ]
