@@ -6,10 +6,10 @@ class SovetRomanticaPlugin
 {
 	const Name = 'SovetRomantica';
 	const Description = 'Источник аниме SovetRomantica [Озвучка\Субтитры]';
-	const Version = '0.0.3';
+	const Version = '0.0.4';
 	const Type = 'Парсер';
 
-	static $cookie;
+	#static $cookie;
 	static function info(){
 		return [
 			'name'=>self::Name,
@@ -23,12 +23,12 @@ class SovetRomanticaPlugin
 		pSource::add(self::Name . "Plugin");
 		pParser::add('SovetRomantica', array("SovetRomanticaPlugin", "parse"));
 
-		self::loadCookie();
+		#self::loadCookie();
 
 		return new MPlugin(self::info());
 	}
 
-	static function loadCookie(){
+	/*static function loadCookie(){
 		uiLater(function(){
 			$browser = pObjControl::createPhantomBrowser();
 			$browser[1]->engine->watchState(function($sender, $old, $new) use($browser){
@@ -41,9 +41,9 @@ class SovetRomanticaPlugin
 					}
 				}
 			});
-			$browser[1]->engine->load('https://sovetromantica.com');
+			$browser[1]->engine->load("https://sovetromantica.com/");
 		});
-	}
+	}*/
 
 	static function search(string $query, int $episode=1, int $type=3){
 		if($type == 1){
