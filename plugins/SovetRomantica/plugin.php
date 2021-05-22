@@ -9,7 +9,7 @@ class SovetRomanticaPlugin
 	const Version = '0.0.4';
 	const Type = 'Парсер';
 
-	#static $cookie;
+	static $cookie;
 	static function info(){
 		return [
 			'name'=>self::Name,
