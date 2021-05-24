@@ -6,14 +6,12 @@ class AnimeJoyPlugin
 {
 	const Name = 'AnimeJoy';
 	const Description = 'Источник аниме AnimeJoy [Субтитры]';
-	const Version = '0.0.4';
 	const Type = 'Парсер';
 
 	static function info(){
 		return [
 			'name'=>self::Name,
 			'desc'=>self::Description,
-			'ver'=>self::Version,
 			'type'=>self::Type
 		];
 	}
@@ -30,13 +28,26 @@ class AnimeJoyPlugin
 		if($type != 2){
 			return pSource::set_error(self::Name, 'Отсутствует этот тип перевода');
 		}
-		$animes = ParserClass::curl_match('https://animejoy.ru/', '<h2 class="ntitle"><a href="(.*?)">(.*?) \[.*?\]<\/a><\/h2>', [], false, "do=search&subaction=search&story=" . urlencode(ParserClass::clear_query($query)));
+		$name = ParserClass::clear_query($query);
+		$regex = "<h2 class=\"ntitle\"><a href=\"(.*?)\">(.*?)<\\/a><\\/h2>.*?<div class=\"blkdesc\">(.*?)<\\/div>";
+		$animes = ParserClass::curlexec('https://animejoy.ru/', [], false, "do=search&subaction=search&story=" . urlencode($name));
+		$animes = ParserClass::match($regex, $animes, true, true);
 
 		if(!empty($animes)){
 			foreach($animes as $id=>$anime){
-				if(ParserClass::clear_query($anime[2]) == ParserClass::clear_query($query)){
+				$finded_name = ParserClass::clear_query(explode(" [", $anime[2])[0]);
+				#DebugClass::echo_log("Инфа: $finded_name	=	$name");
+				if ($finded_name == $name) {
+					#DebugClass::echo_log("Нашёл: $finded_name	=	$name");
 					$main_id = $id;
 					break;
+				} else {
+					$altern_name = ParserClass::clear_query(ParserClass::match("<span itemprop=\"alternativeHeadline\">(.*?)<\/span>", $anime[3], false, false));
+					if ($altern_name == $name) {
+						#DebugClass::echo_log("Нашёл: [$finded_name] $altern_name	=	$name");
+						$main_id = $id;
+						break;
+					}
 				}
 			}
 
@@ -51,7 +62,6 @@ class AnimeJoyPlugin
 
 				if($data['success'] == true and isset($data['response'])) {
 					$depisodes = ParserClass::match('<li data-file=\"(.*?)" data-id=\".*?\">(.*?) ([а-я]+)<\/li>', $data['response'], true);
-
 					foreach($depisodes as $depisode){
 						if($depisode[2] == $episode and $depisode[3] == "серия") {
 							if(str::contains($depisode[1], 'sibnet')) {
@@ -102,10 +112,8 @@ class AnimeJoyPlugin
 	}
 
 	static function proton_parse($url, bool $returnQuality = false) {
-		$result = ParserClass::curl_match($url, "await fetch\\('(.*?)', \\{");
 		$id = ParserClass::match('https:\/\/protonvideo\.to\/iframe\/(.*?)\/', $url);
-		
-		$url = ParserClass::curl_match($result[0][1], '"file":"\[(.*?)p\](.*?) ', ['Referer: https://protonvideo.to/'], false, json_encode(['idi'=>$id]))[0];
+		$url = ParserClass::curl_match("https://api.svh-api.ch/api/v4/player", '"file":"\[(.*?)p\](.*?) ', ['Referer: https://protonvideo.to/'], false, json_encode(['idi'=>$id]))[0];
 		return $returnQuality ? [$url[2], $url[1].'p'] : $url[2];
 	}
 }
